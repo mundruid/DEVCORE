@@ -1,0 +1,22 @@
+{
+    "pool": "http",
+    "description": "My virtual server test",
+    "name": "http-virtual",
+    "mask": "255.255.255.255",
+    "profiles": [
+        {
+            "name": "http",
+            "kind": "ltm:virtual:profile"
+        },
+        {
+            "name": "tcp",
+            "kind": "ltm:virtual:profile"
+        }
+    ],
+    "ipProtocol": "tcp",
+    "sourceAddressTranslation": {
+        "type": "automap"
+    },
+    "kind": "tm:ltm:virtual:virtualstate",
+    "destination": "1.1.1.3:80"
+}
