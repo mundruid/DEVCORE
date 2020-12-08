@@ -11,7 +11,7 @@ import time
 import json
 import pprint
 
-import dna_auth_token 
+import auth_token 
 
 TIMEOUT = 20
 ATTEMPTS = 3
@@ -19,7 +19,7 @@ ATTEMPTS = 3
 def main():
     url = "https://sandboxdnac2.cisco.com"
     password = getpass.getpass(prompt='Password: ', stream=None)
-    token = dna_auth_token.get_token(url, "devnetuser", password)
+    token = auth_token.get_token(url, "devnetuser", password)
 
     headers = {"Content-Type": "application/json", "X-Auth-Token": token}
 

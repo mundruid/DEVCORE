@@ -10,7 +10,7 @@ import sys
 import re
 from tqdm import tqdm
 
-import dna_auth_token 
+import auth_token 
 
 # Cisco DNA allows only 5 reqs per minute
 REQS_PER_MINUTE = 5
@@ -18,7 +18,7 @@ REQS_PER_MINUTE = 5
 def main(argv):
     url = "https://sandboxdnac2.cisco.com"
     password = getpass.getpass(prompt='Password: ', stream=None)
-    token = dna_auth_token.get_token(url, "devnetuser", password)
+    token = auth_token.get_token(url, "devnetuser", password)
 
     headers = {"Content-Type": "application/json", "X-Auth-Token": token}
 

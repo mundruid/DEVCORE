@@ -1,6 +1,6 @@
 import sys
 
-from meraki_helpers import find_network, req
+from helpers import find_network, req
 
 def main(argv):
 
