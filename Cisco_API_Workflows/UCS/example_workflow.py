@@ -1,4 +1,4 @@
-"""Simple workflow to get token, information about user, and change password """
+"""Simple workflow to get token, information about user, and change password, UCS Director"""
 import requests
 import os
 import pprint
