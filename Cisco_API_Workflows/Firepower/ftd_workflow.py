@@ -3,6 +3,7 @@ import getpass
 from requests.compat import urljoin
 import pprint
 import json
+import sys
 
 
 API_URL = "https://10.10.20.65/api/fdm/latest"
@@ -68,18 +69,12 @@ def delete_network_objects(token, link):
     return requests.delete(url=link, headers=headers, verify=False)
 
 
-if __name__ == "__main__":
-    token = get_token().json()["access_token"]
-    print(token)
-    objects = get_network_objects(token).json()
-    pprint.pprint(objects)
-    object_names = [obj['name'] for obj in objects['items']]
+def add_edit_list_objects(new_objects, old_object_names, token):
+    """Utility function to add or edit a list of objects
 
-    # read file with objects
-    with open("./objects.json", "r") as file_handle:
-        network_objects = json.load(file_handle)
-
-    # add the objects
+    Args:
+        objects ([list]): objects to be added or edited
+    """
     for obj in network_objects:
         # idempotency
         if obj['name'] not in object_names:
@@ -100,9 +95,28 @@ if __name__ == "__main__":
                             edit_network_objects(
                                 token, item['links']['self'], item)
 
-    new_objects = get_network_objects(token).json()
-    pprint.pprint(objects)
 
-    for obj in new_objects['items']:
-        print(obj['links']['self'])
-        delete_network_objects(token, obj['links']['self'])
+if __name__ == "__main__":
+    token = get_token().json()["access_token"]
+    print(token)
+    objects = get_network_objects(token).json()
+    object_names = [obj['name'] for obj in objects['items']]
+
+    # read file with objects
+    with open("./objects.json", "r") as file_handle:
+        network_objects = json.load(file_handle)
+
+    # add / edit objects
+    if sys.argv[1] == "add":
+        add_edit_list_objects(network_objects, object_names, token)
+
+        new_objects = get_network_objects(token).json()
+        pprint.pprint(objects)
+    # delete
+    elif sys.argv[1] == "del":
+        for obj in objects['items']:
+            print(obj['links']['self'])
+            delete_network_objects(token, obj['links']['self'])
+    # just print old objects
+    else:
+        pprint.pprint(objects)
