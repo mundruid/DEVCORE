@@ -10,21 +10,21 @@
         "name": "TEST-NET-1",
         "description": "See RFC5737",
         "subType": "NETWORK",
-        "value": "192.0.2.0/24",
+        "value": "10.10.0.0/24",
         "type": "networkobject"
     },
     {
         "name": "TEST-NET-2",
         "description": "See RFC5737",
         "subType": "NETWORK",
-        "value": "198.51.134.0/24",
+        "value": "198.3.4.0/24",
         "type": "networkobject"
     },
     {
         "name": "TEST-NET-3",
         "description": "See RFC5737",
         "subType": "NETWORK",
-        "value": "203.0.113.1/24",
+        "value": "203.3.4.0/24",
         "type": "networkobject"
     },
     {

@@ -69,54 +69,48 @@ def delete_network_objects(token, link):
     return requests.delete(url=link, headers=headers, verify=False)
 
 
-def add_edit_list_objects(new_objects, old_object_names, token):
-    """Utility function to add or edit a list of objects
-
-    Args:
-        objects ([list]): objects to be added or edited
-    """
-    for obj in network_objects:
-        # idempotency
-        if obj['name'] not in object_names:
-            add_network_objects(token, obj)
-        else:
-            # edit if diff
-            for item in objects['items']:
-                if item['name'] == obj['name']:
-                    # compare all keys
-                    print(item['name'])
-                    k1 = set(item.keys())
-                    k2 = set(dict(obj).keys())
-                    common_keys = set(k1).intersection(set(k2))
-                    for key in common_keys:
-                        if item[key] != obj[key]:
-                            print(key)
-                            print(item[key])
-                            edit_network_objects(
-                                token, item['links']['self'], item)
-
-
 if __name__ == "__main__":
     token = get_token().json()["access_token"]
     print(token)
-    objects = get_network_objects(token).json()
-    object_names = [obj['name'] for obj in objects['items']]
+    old_objects = get_network_objects(token).json()
+    old_object_names = [obj['name'] for obj in old_objects['items']]
 
     # read file with objects
     with open("./objects.json", "r") as file_handle:
-        network_objects = json.load(file_handle)
+        new_objects = json.load(file_handle)
 
     # add / edit objects
     if sys.argv[1] == "add":
-        add_edit_list_objects(network_objects, object_names, token)
+        for new in new_objects:
+            # idempotency
+            if new['name'] not in old_object_names:
+                add_network_objects(token, new)
+            else:
+                # edit if diff
+                for old in old_objects['items']:
+                    if old['name'] == new['name']:
+                        # compare all keys
+                        k1 = set(old.keys())
+                        k2 = set(dict(new).keys())
+                        common_keys = set(k1).intersection(set(k2))
+                        for key in common_keys:
+                            if old[key] != new[key]:
+                                # printing all objects that should change
+                                print(key)
+                                print(new[key])
+                                print(new)
+                                print(old['links']['self'])
+                                # edit does not work as expected
+                                edit_network_objects(
+                                    token, old['links']['self'], new)
 
         new_objects = get_network_objects(token).json()
-        pprint.pprint(objects)
+        pprint.pprint(new_objects)
     # delete
     elif sys.argv[1] == "del":
-        for obj in objects['items']:
+        for obj in old_objects['items']:
             print(obj['links']['self'])
             delete_network_objects(token, obj['links']['self'])
     # just print old objects
     else:
-        pprint.pprint(objects)
+        pprint.pprint(old_objects)
