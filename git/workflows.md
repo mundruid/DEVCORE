@@ -21,7 +21,7 @@ git checkout -b demo-git-cli
 ```bash
 git status
 git add .
-git commit -m "add logging aireos"
+git commit -m "add docstring ios"
 git push origin demo-git-cli
 ```
 
@@ -34,8 +34,8 @@ The problem:
 ```bash
 git checkout develop
 # make some changes
-git add utilization/rundeck.py
-git commit -m "change accuracy of docs"
+git add pyntc/devices/ios_device.py
+git commit -m "add docstring"
 ```
 
 How to fix the problem:
@@ -46,15 +46,15 @@ git stash
 git checkout correct-branch
 git stash pop
 git add .
-git commit -m "make docs more descriptive"
+git commit -m "add docstring"
 ```
 
-### Dangit, I accidentally committed something to master that should have been on a brand new branch!
+### Dangit, I accidentally committed something to main that should have been on a brand new branch!
 
 The problem:
 
 ```bash
-git checkout master
+git checkout main
 git add .
 git commit -m "I should not be doing this"
 ```
@@ -112,9 +112,9 @@ git rebase origin develop
 ### Forget all this noise, I give up
 
 ```bash
-rm -r versa
+rm -r pyntc
 git clone
-cd versa
+cd pyntc
 ```
 
 OR
