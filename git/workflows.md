@@ -3,8 +3,8 @@
 ## Cloning a repo
 
 ```bash
-git clone git@git-enterprise-jc.onefiserv.net:ntc/infrastructure-utilization-metrics.git
-cd infrastructure-utilization-metrics
+git clone git@github.com:networktocode/pyntc.git
+cd pyntc
 git status
 ```
 
@@ -21,7 +21,7 @@ git checkout -b demo-git-cli
 ```bash
 git status
 git add .
-git commit -m "fix rundeck client"
+git commit -m "add logging aireos"
 git push origin demo-git-cli
 ```
 
