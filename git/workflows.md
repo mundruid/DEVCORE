@@ -1,4 +1,4 @@
-# Git CLI demo commands
+# Git CLI demo
 
 ## Cloning a repo
 
@@ -106,7 +106,7 @@ git merge origin develop
 OR
 
 ```bash
-git rebase origin develop
+git pull rebase origin develop
 ```
 
 ### Forget all this noise, I give up
