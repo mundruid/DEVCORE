@@ -36,7 +36,8 @@ payload = {
 path = "boot/PrecisionPolicies/"
 response = requests.post(url=URL+path, headers=headers,
                          json=payload, auth=AUTH)
-moid = response.json()["Moid"]
+if response.status_code is ok:
+    moid = response.json()["Moid"]
 
 print(response.text)
 

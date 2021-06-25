@@ -25,9 +25,11 @@ print(response.text)
 
 # get Physical summaries select Dn, top 5
 path = "compute/PhysicalSummaries"
+# equivalent endpoint if you do not use params
+# path = "compute/PhysicalSummaries?$top=5&$select=Model,Dn,Name"
 params = {"$top": 5, "$select": "Model,Dn,Name"}
 try:
-    response = requests.get(url=URL+path, auth=AUTH)
+    response = requests.get(url=URL+path, auth=AUTH, params=params)
 except HTTPError as e:
     print(f"HTTP error {e}")
 print(response.text)
